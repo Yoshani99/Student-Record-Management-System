@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+  <div style="background-color:dimgrey;">
+  <!-- Background Image -->
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Logo -->
+        <img src="img/logonew.png" height="110%" width="25%" alt="Logo">
+      </div>
+      <div class="col-md-6">
+        <!-- Login Button -->
+        <button class="btn btn-primary float-end" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginButton">
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        </button>
+      </div>
+    </div>
+  </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Login Form -->
+          <form id="loginForm">
+            <div class="modal-header">
+              <img src="img/logonew.png" height="100" width="130" alt="Logo">
+              <h5 class="modal-title" id="loginModalLabel"> User Profile</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="usernameInput" class="form-label">Username</label>
+                <input type="text" class="form-control" id="usernameInput" placeholder="Enter your username">
+              </div>
+              <div class="mb-3">
+                <label for="passwordInput" class="form-label">Password</label>
+                <input type="password" class="form-control" id="passwordInput" placeholder="Enter your password">
+              </div>
+              <div class="text-center">
+                <a href="#forgotPasswordModal" data-bs-dismiss="modal" data-bs-toggle="modal">Forgot Password?</a>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Forgot Password Form - Step 1 -->
+          <form>
+            <div class="modal-header">
+              <img src="img/logonew.png" height="130" width="100" alt="Logo">
+              <h5 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="emailInput" class="form-label">Email</label>
+                <div class="input-group">
+                  <input type="email" class="form-control" id="emailInput" placeholder="Enter your email">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Reset Password Form - Step 2 -->
+          <form>
+            <div class="modal-header">
+              <img src="img/logonew.png" height="130" width="100" alt="Logo">
+              <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="newPasswordInput" class="form-label">New Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="newPasswordInput" placeholder="Enter your new password">
+                  <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="confirmPasswordInput" class="form-label">Confirm Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Confirm your new password">
+                  <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Confirm</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('#loginForm').submit(function(e) {
+      e.preventDefault(); // Prevent the default form submission
+
+      // Get form values
+      const username = $('#usernameInput').val();
+      const password = $('#passwordInput').val();
+
+      // Check if username and password match the allowed credentials
+      if (username === "Yoshi" && password === "Avi123") {
+        // Redirect to home.html
+        window.location.href = "home.html";
+      } else {
+        alert('Invalid username or password'); // Show error message
+      }
+    });
+
+    // Submit email for password reset
+    $('#forgotPasswordModal form').submit(function(e) {
+      e.preventDefault(); // Prevent the default form submission
+
+      // Get email value
+      const email = $('#emailInput').val();
+
+      // Perform email validation and processing
+      if (email === "chamithagimhan99@gmail.com") {
+        $('#forgotPasswordModal').modal('hide');
+        $('#resetPasswordModal').modal('show');
+      } else {
+        alert('Invalid email address');
+      }
+    });
+  });
+</script>
+
+  
+</body>
+</html>

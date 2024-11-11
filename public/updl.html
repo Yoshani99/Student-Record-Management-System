@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+  td.icons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .hidden-icons .edit-icon,
+  .hidden-icons .delete-icon {
+    display: none;
+  }
+
+  @keyframes slide-in {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 200px;
+    }
+  }
+
+  .search-bar {
+    animation: slide-in 0.5s forwards;
+  }
+
+  .search-bar input {
+    width: 0;
+  }
+</style>
+
+<script>
+  function toggleIcons(button) {
+    var table = document.getElementById("studentTable");
+    var rows = table.getElementsByTagName("tr");
+    var iconsClass = button.getAttribute("data-icons-class");
+    var isHidden = button.classList.toggle("active");
+
+    for (var i = 0; i < rows.length; i++) {
+      var icons = rows[i].querySelector(".icons");
+      if (isHidden) {
+        icons.classList.add(iconsClass);
+      } else {
+        icons.classList.remove(iconsClass);
+      }
+    }
+  }
+
+  function showActionButtons() {
+    var actionButton = document.getElementById("actionButton");
+    var rows = document.querySelectorAll("#studentTable tr");
+
+    for (var i = 0; i < rows.length; i++) {
+      var icons = rows[i].querySelector(".icons");
+      icons.classList.add("hidden-icons");
+    }
+
+    actionButton.addEventListener("click", function () {
+      var isActive = actionButton.classList.contains("active");
+
+      if (isActive) {
+        actionButton.classList.remove("active");
+
+        for (var i = 0; i < rows.length; i++) {
+          var icons = rows[i].querySelector(".icons");
+          icons.classList.add("hidden-icons");
+        }
+      } else {
+        actionButton.classList.add("active");
+
+        for (var i = 0; i < rows.length; i++) {
+          var icons = rows[i].querySelector(".icons");
+          icons.classList.remove("hidden-icons");
+        }
+      }
+    });
+  }
+
+  // Call the showActionButtons function when the page has finished loading
+  document.addEventListener("DOMContentLoaded", function () {
+    showActionButtons();
+  });
+
+  function searchTable() {
+    var input = document.getElementById("searchInput").value;
+    var option = document.getElementById("searchOption").value;
+    var table = document.getElementById("studentTable");
+    var rows = table.getElementsByTagName("tr");
+
+    for (var i = 0; i < rows.length; i++) {
+      var rowData = rows[i].getElementsByTagName("td");
+      var displayRow = false;
+
+      switch (option) {
+        case "SID":
+          if (rowData[0].innerHTML.includes(input)) {
+            displayRow = true;
+          }
+          break;
+        case "FirstName":
+          if (rowData[1].innerHTML.toLowerCase().includes(input.toLowerCase())) {
+            displayRow = true;
+          }
+          break;
+        case "LastName":
+          if (rowData[2].innerHTML.toLowerCase().includes(input.toLowerCase())) {
+            displayRow = true;
+          }
+          break;
+        case "Email":
+          if (rowData[3].innerHTML.toLowerCase().includes(input.toLowerCase())) {
+            displayRow = true;
+          }
+          break;
+        case "NearestCity":
+          if (rowData[4].innerHTML.toLowerCase().includes(input.toLowerCase())) {
+            displayRow = true;
+          }
+          break;
+        case "Course":
+          if (rowData[5].innerHTML.toLowerCase().includes(input.toLowerCase())) {
+            displayRow = true;
+          }
+          break;
+      }
+
+      if (displayRow) {
+        rows[i].style.display = "";
+      } else {
+        rows[i].style.display = "none";
+      }
+    }
+  }
+
+  function deleteRow(row) {
+    row.remove();
+  }
+
+  function editRow(row) {
+    var cells = row.getElementsByTagName("td");
+
+    for (var i = 1; i < cells.length - 1; i++) {
+      var cellValue = cells[i].innerHTML;
+      cells[i].innerHTML = "<input type='text' class='form-control' value='" + cellValue + "'>";
+    }
+
+    var icons = row.querySelector(".icons");
+    icons.querySelector(".edit-icon").style.display = "none";
+    icons.querySelector(".delete-icon").style.display = "none";
+    icons.innerHTML += "<button class='btn btn-success save-icon'><i class='fas fa-check'></i></button>";
+
+    var saveButton = icons.querySelector(".save-icon");
+    saveButton.addEventListener("click", function () {
+      saveRow(row);
+    });
+  }
+
+  function saveRow(row) {
+    var cells = row.getElementsByTagName("td");
+
+    for (var i = 1; i < cells.length - 1; i++) {
+      var inputValue = cells[i].querySelector("input").value;
+      cells[i].innerHTML = inputValue;
+    }
+
+    var icons = row.querySelector(".icons");
+    icons.querySelector(".edit-icon").style.display = "";
+    icons.querySelector(".delete-icon").style.display = "";
+    icons.querySelector(".save-icon").remove();
+  }
+  
+  function updateSearchOption() {
+    var searchOption = document.getElementById("searchOption");
+    var guardianOptionIndex = 6; // Index of the "Search by Guardian" option
+
+    if (searchOption.options[guardianOptionIndex].disabled) {
+      searchOption.options[guardianOptionIndex].disabled = false;
+    } else {
+      searchOption.options[guardianOptionIndex].disabled = true;
+      searchOption.value = "SID"; // Set the default option to "Search by Student ID"
+    }
+  }
+</script>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Student Record Management System</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="home.html">Home</a></li>
+        <li class="active"><a href="updatedelete.html">Student Info</a> </li>
+      </ul>
+    </div>
+  </nav>
+  <h1 class="text-center">Student Management System</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h2 class="text-center">Student Details</h2>
+        <div class="text-center">
+          <div class="input-group search-bar">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search..." />
+            <span class="input-group-btn">
+              <button class="btn btn-primary" onclick="searchTable()">Search</button>
+            </span>
+          </div>
+          <select class="form-control" id="searchOption" onchange="updateSearchOption()">
+            <option value="SID">Search by Student ID</option>
+            <option value="FirstName">Search by First Name</option>
+            <option value="LastName">Search by Last Name</option>
+            <option value="Email">Search by Email</option>
+            <option value="NearestCity">Search by Nearest City</option>
+            <option value="Course">Search by Course</option>
+            <option value="Guardian">Search by Guardian</option>
+          </select>
+          <div class="text-center">
+            <button class="btn btn-primary" id="actionButton">Action Button</button>
+          </div>
+        </div>
+        <br />
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Nearest City</th>
+              <th>Course</th>
+              <th>Guardian</th>
+              <th>Subject</th>
+            </tr>
+          </thead>
+          <tbody id="studentTable">
+            <tr>
+              <td>1</td>
+              <td>John</td>
+              <td>Doe</td>
+              <td>johndoe@example.com</td>
+              <td>New York</td>
+              <td>Computer Science</td>
+              <td>John's Guardian</td>
+              <td>Mathematics</td>
+              <td class="icons hidden-icons">
+                <button class="btn btn-primary edit-icon" onclick="editRow(this.parentNode.parentNode)"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger delete-icon" onclick="deleteRow(this.parentNode.parentNode)"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>kohn</td>
+              <td>Doe</td>
+              <td>johndoe@example.com</td>
+              <td>New York</td>
+              <td>Computer Science</td>
+              <td>John's Guardian</td>
+              <td>Mathematics</td>
+              <td class="icons hidden-icons">
+                <button class="btn btn-primary edit-icon" onclick="editRow(this.parentNode.parentNode)"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger delete-icon" onclick="deleteRow(this.parentNode.parentNode)"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>mohn</td>
+              <td>Doe</td>
+              <td>johndoe@example.com</td>
+              <td>New York</td>
+              <td>Computer Science</td>
+              <td>John's Guardian</td>
+              <td>Mathematics</td>
+              <td class="icons hidden-icons">
+                <button class="btn btn-primary edit-icon" onclick="editRow(this.parentNode.parentNode)"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger delete-icon" onclick="deleteRow(this.parentNode.parentNode)"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <!-- Remaining rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+ 
+</body>
+</html>
+

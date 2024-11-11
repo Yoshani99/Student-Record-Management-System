@@ -1,0 +1,1 @@
+<button type="register1-register2" class="btn" onclick="location.href='register1-register2'">Next</button>

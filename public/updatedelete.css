@@ -1,0 +1,63 @@
+body{
+    background: linear-gradient(
+            90deg,
+            #f5b94a 0%,
+            #e9e633 45%,
+            #f56c4a 100%
+          );
+    
+}
+table {
+	border-collapse: collapse;
+	width: 100%;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+table td, table th {
+	border: 2px solid black;
+	padding: 8px;
+	text-align: left;
+}
+.edit-icon {
+	color: #007bff;
+	cursor: pointer;
+}
+
+.btn1{
+	border-radius: 13px;
+	color: blue;
+	font-weight: bold;
+	border-color: red;
+	height: 30px;
+	background-color: rgb(248, 225, 160);
+}
+.btn1:hover{
+	background: rgb(255, 120, 9);
+	color: black;
+	font-weight: bold;
+}
+.searchplace{
+	border-radius: 13px;
+	border-color: red;
+	color: blue;
+	width: 250px;
+	height: 30px;
+}
+
+.searchopt{
+	border-radius: 13px;
+	border-color: red;
+	color: blue;
+	width: 200px;
+	height: 30px;
+	border-width: 2px;
+}
+
+#studentTable{
+	font-weight: bold;
+}
+.tbltop{
+	color: blue;
+	background-color: rgb(248, 225, 160);
+}

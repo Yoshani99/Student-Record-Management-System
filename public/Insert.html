@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student Record Management System</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      body {
+        background: linear-gradient(
+          90deg,
+          #f5b94a 0%,
+          #e9e633 45%,
+          #f56c4a 100%
+        );
+      }
+      h1 {
+        text-align: center;
+      }
+      h2 {
+        text-align: center;
+      }
+
+      .form-section,
+      .students-section {
+        margin-bottom: 20px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      label {
+        margin-top: 10px;
+      }
+
+      input[type="submit"] {
+        font-size: larger;
+        font-weight: bold;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #ffffff;
+        color: blue;
+        border-color: red;
+        border-width: 2px;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background: rgb(255, 120, 9);
+        text-transform: uppercase;
+        color: blue;
+        font-weight: bolder;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Student Record Management System</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="home.html">Home</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <h1
+        style="
+          font-weight: bold;
+          font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+            'Lucida Sans', Arial, sans-serif;
+          font-size: 50px;
+          color: rgb(38, 156, 154);
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+          padding: 20px; /* Add padding for space inside */
+          margin: 20px 0; /* Add margin for space outside */
+          line-height: 1.2; /* Improve line height for readability */
+          background: linear-gradient(to right, rgba(42, 66, 202, 0.2), rgba(42, 66, 202, 0.05)); /* Add subtle background gradient */
+          border-radius: 10px; /* Rounded corners */
+        "
+      >
+        Student Management System
+      </h1>
+      <div class="form-section">
+        <u
+          ><h2
+            style="
+              font-weight: bold;
+              font-family: 'Trebuchet MS', 'Lucida Sans Unicode',
+                'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+              font-size: 35px;
+              color: blue;
+              text-transform: uppercase;
+            "
+          >
+            Insert Student
+          </h2></u
+        >
+        <br /><br />
+        <form id="addstuform" style="color: blue">
+          <label>Student ID:</label>
+          <input
+            style="border-radius: 15px; height: 35px"
+            type="text"
+            id="sid"
+            name="sid"
+            required
+          />
+          <label>First Name:</label>
+          <input
+            style="border-radius: 15px; height: 35px"
+            type="text"
+            id="first_name"
+            name="first_name"
+            required
+          />
+          <label>Last Name:</label>
+          <input
+            style="border-radius: 15px; height: 35px"
+            type="text"
+            id="last_name"
+            name="last_name"
+            required
+          />
+          <label>Email:</label>
+          <input
+            style="border-radius: 15px; height: 35px"
+            type="email"
+            id="email"
+            name="email"
+            required
+          />
+          <label>Nearest City:</label>
+          <input
+            style="border-radius: 15px; height: 35px"
+            type="text"
+            id="nearest_city"
+            name="nearest_city"
+            required
+          />
+          <label>Course:</label>
+          <input
+            style="border-radius: 15px; height: 35px"
+            type="text"
+            id="course"
+            name="course"
+            required
+          />
+          <label>Guardian:</label>
+          <input
+            style="border-radius: 15px; height: 35px"
+            type="text"
+            id="guardian"
+            name="guardian"
+            required
+          />
+          <label>Subjects:</label>
+          <input
+            style="border-radius: 15px; height: 35px"
+            type="text"
+            id="subject"
+            name="subjects"
+            required
+          />
+          <label>Total fee for a semester:</label>
+          <input
+            style="border-radius: 15px; height: 35px"
+            type="text"
+            id="totalFee"
+            name="totalFee"
+            required
+          />
+          <label>Down payment:</label>
+          <input
+            style="border-radius: 15px; height: 35px"
+            type="text"
+            id="down_payment"
+            name="down_payment"
+            required
+          />
+
+          <br />
+          <input class="submit" type="submit" value="Add Student" />
+        </form>
+      </div>
+      <div class="students-section">
+        <br />
+        <table class="tbl2" border="5" id="studentTable">
+          <thead>
+            <tr>
+              <th>StudentID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Nearest City</th>
+              <th>Course</th>
+              <th>Guardian</th>
+              <th>Subjects</th>
+              <th>Total Fee</th>
+              <th>Down Payment</th>
+              <th>Outstanding Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      // Initialize an array to store student records
+      var studentRecords = [];
+
+      document
+        .getElementById("addstuform")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Prevent form submission
+
+          // Retrieve form input values
+          var studentId = document.getElementById("sid").value;
+          var firstName = document.getElementById("first_name").value;
+          var lastName = document.getElementById("last_name").value;
+          var email = document.getElementById("email").value;
+          var nearestCity = document.getElementById("nearest_city").value;
+          var course = document.getElementById("course").value;
+          var guardian = document.getElementById("guardian").value;
+          var subjects = document.getElementById("subject").value.split(","); // Split subjects by comma
+          var totalFee = parseFloat(document.getElementById("totalFee").value);
+          var downPayment = parseFloat(
+            document.getElementById("down_payment").value
+          );
+          var outstandingAmount = totalFee - downPayment; // Calculate outstanding amount
+
+          // Create a new student record object
+          var studentRecord = {
+            SID: studentId,
+            FirstName: firstName,
+            "LastName ": lastName,
+            Email: email,
+            NearCity: nearestCity,
+            Course: course.split(","),
+            Guardian: guardian,
+            Subjects: subjects,
+            TotalFee: totalFee,
+            DownPayment: downPayment,
+            OutstandingAmount: outstandingAmount,
+          };
+
+          // Add the student record to the array
+          studentRecords.push(studentRecord);
+
+          // Convert the array to JSON
+          var jsonRecords = JSON.stringify(studentRecords);
+
+          // Print the JSON array to the console (for testing purposes)
+          console.log(jsonRecords);
+
+          // Create a new table row with the form input values
+          var newRow = document.createElement("tr");
+          newRow.innerHTML =
+            "<td>" +
+            studentId +
+            "</td><td>" +
+            firstName +
+            "</td><td>" +
+            lastName +
+            "</td><td>" +
+            email +
+            "</td><td>" +
+            nearestCity +
+            "</td><td>" +
+            course +
+            "</td><td>" +
+            guardian +
+            "</td><td>" +
+            subjects.join(", ") +
+            "</td><td>" +
+            totalFee +
+            "</td><td>" +
+            downPayment +
+            "</td><td>" +
+            outstandingAmount.toFixed(2) + // Limit the outstanding amount to 2 decimal places
+            "</td>";
+
+          // Append the new row to the table
+          var tableBody = document.querySelector("#studentTable tbody");
+          tableBody.appendChild(newRow);
+
+          // Clear the form inputs
+          document.getElementById("addstuform").reset();
+        });
+    </script>
+  </body>
+</html>

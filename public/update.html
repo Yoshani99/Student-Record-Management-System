@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Update</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .input[type=text] {
+      width: 120px;
+      box-sizing: border-box;
+      border: 2px solid #07f126e8;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: rgba(226, 218, 218, 0.5);
+      background-image: url('searchicon.png');
+      background-position: 10px 10px; 
+      background-repeat: no-repeat;
+      padding: 12px 20px 12px 40px;
+      -webkit-transition: width 0.4s ease-in-out;
+      transition: width 0.4s ease-in-out;
+      margin: 0 auto; /* Updated to center the search bar */
+      display: block; /* Added to make the search bar a block element */
+    }
+    
+    input[type=text]:focus {
+      width: 90%;
+    }
+  </style>
+  <script>
+    $(document).ready(function() {
+      // Function to search and display student details
+      function searchTable() {
+        var input = $("input[name='Enter the Student SID']").val().toLowerCase();
+        var table = $("#studentTable tbody tr");
+        
+        table.each(function() {
+          var studentId = $(this).find("td:nth-child(1)").text().toLowerCase();
+          var studentName = $(this).find("td:nth-child(2)").text().toLowerCase();
+          
+          if (studentId.includes(input) || studentName.includes(input)) {
+            $(this).show();
+          } else {
+            $(this).hide();
+          }
+        });
+      }
+
+      // Function to update student details
+      function updateStudentDetails() {
+        var row = $(this).addBack('tr');
+        var studentId = row.find("td:nth-child(1)").text();
+        var firstName = row.find("td:nth-child(2) input").val();
+        var lastName = row.find("td:nth-child(3) input").val();
+        var email = row.find("td:nth-child(4) input").val();
+        var nearestCity = row.find("td:nth-child(5) input").val();
+        var course = row.find("td:nth-child(6) input").val();
+        var guardian = row.find("td:nth-child(7) input").val();
+        var subjects = row.find("td:nth-child(8) input").val();
+
+        // Perform the update logic here
+        // For demonstration, we will simply update the table values
+        row.find("td:nth-child(2)").text(firstName);
+        row.find("td:nth-child(3)").text(lastName);
+        row.find("td:nth-child(4)").text(email);
+        row.find("td:nth-child(5)").text(nearestCity);
+        row.find("td:nth-child(6)").text(course);
+        row.find("td:nth-child(7)").text(guardian);
+        row.find("td:nth-child(8)").text(subjects);
+        
+        console.log("Updating Student: ", studentId);
+        console.log("First Name: ", firstName);
+        console.log("Last Name: ", lastName);
+        console.log("Email: ", email);
+        console.log("Nearest City: ", nearestCity);
+        console.log("Course: ", course);
+        console.log("Guardian: ", guardian);
+        console.log("Subjects: ", subjects);
+      }
+
+      // Attach searchTable function to the search button click event
+      $(".btn-search").click(function(event) {
+        event.preventDefault(); // Prevent form submission
+        searchTable();
+      });
+
+      // Attach updateStudentDetails function to the update buttons' click event
+      $(document).on('click', '.btn-update', updateStudentDetails);
+    });
+  </script>
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Student Record Management System</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="../Home/home.html">Home</a></li>
+        <li class="style"><a href="../Editinfo/updatedelete.html">Student Info</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="text-center">
+      <form>
+        <input type="text" name="Enter the Student SID" placeholder="Enter the Student SID or Student First Name..">
+        <button class="btn btn-primary btn-search">Search</button>
+      </form>
+    </div>
+    <div class="students-section">
+      <br />
+      <table class="tbl2" border="5" id="studentTable">
+        <thead>
+          <tr>
+            <th>StudentID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Nearest City</th>
+            <th>Course</th>
+            <th>Guardian</th>
+            <th>Subjects</th>
+            <th>Action</th> <!-- Added the Action column for update buttons -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><input type="text" value="John"></td>
+            <td><input type="text" value="Doe"></td>
+            <td><input type="text" value="john.doe@example.com"></td>
+            <td><input type="text" value="New York"></td>
+            <td><input type="text" value="Computer Science"></td>
+            <td><input type="text" value="John's Father"></td>
+            <td><input type="text" value="Math, Science"></td>
+            <td><button class="btn1 btn-update"><i class="fas fa-edit edit-icon"></i></button>
+            </td> <!-- Update button added -->
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" value="Jane"></td>
+            <td><input type="text" value="Smith"></td>
+            <td><input type="text" value="jane.smith@example.com"></td>
+            <td><input type="text" value="Los Angeles"></td>
+            <td><input type="text" value="Business Administration"></td>
+            <td><input type="text" value="Jane's Mother"></td>
+            <td><input type="text" value="English, Economics"></td>
+            <td><button class="btn1 btn-update"><i class="fas fa-edit edit-icon"></i></button>
+            </td> <!-- Update button added -->
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" value="Jane"></td>
+            <td><input type="text" value="Smith"></td>
+            <td><input type="text" value="jane.smith@example.com"></td>
+            <td><input type="text" value="Los Angeles"></td>
+            <td><input type="text" value="Business Administration"></td>
+            <td><input type="text" value="Jane's Mother"></td>
+            <td><input type="text" value="English, Economics"></td>
+            <td><button class="btn1 btn-update"><i class="fas fa-edit edit-icon"></i></button>
+            </td> <!-- Update button added -->
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" value="Jane"></td>
+            <td><input type="text" value="Smith"></td>
+            <td><input type="text" value="jane.smith@example.com"></td>
+            <td><input type="text" value="Los Angeles"></td>
+            <td><input type="text" value="Business Administration"></td>
+            <td><input type="text" value="Jane's Mother"></td>
+            <td><input type="text" value="English, Economics"></td>
+            <td><button class="btn1 btn-update"><i class="fas fa-edit edit-icon"></i></button>
+            </td> <!-- Update button added -->
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" value="Jane"></td>
+            <td><input type="text" value="Smith"></td>
+            <td><input type="text" value="jane.smith@example.com"></td>
+            <td><input type="text" value="Los Angeles"></td>
+            <td><input type="text" value="Business Administration"></td>
+            <td><input type="text" value="Jane's Mother"></td>
+            <td><input type="text" value="English, Economics"></td>
+            <td><button class="btn1 btn-update"><i class="fas fa-edit edit-icon"></i></button>
+            </td> <!-- Update button added -->
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" value="Jane"></td>
+            <td><input type="text" value="Smith"></td>
+            <td><input type="text" value="jane.smith@example.com"></td>
+            <td><input type="text" value="Los Angeles"></td>
+            <td><input type="text" value="Business Administration"></td>
+            <td><input type="text" value="Jane's Mother"></td>
+            <td><input type="text" value="English, Economics"></td>
+            <td><button class="btn1 btn-update"><i class="fas fa-edit edit-icon"></i></button>
+            </td> <!-- Update button added -->
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" value="Jane"></td>
+            <td><input type="text" value="Smith"></td>
+            <td><input type="text" value="jane.smith@example.com"></td>
+            <td><input type="text" value="Los Angeles"></td>
+            <td><input type="text" value="Business Administration"></td>
+            <td><input type="text" value="Jane's Mother"></td>
+            <td><input type="text" value="English, Economics"></td>
+            <td><button class="btn1 btn-update"><i class="fas fa-edit edit-icon"></i></button>
+            </td> <!-- Update button added -->
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" value="Jane"></td>
+            <td><input type="text" value="Smith"></td>
+            <td><input type="text" value="jane.smith@example.com"></td>
+            <td><input type="text" value="Los Angeles"></td>
+            <td><input type="text" value="Business Administration"></td>
+            <td><input type="text" value="Jane's Mother"></td>
+            <td><input type="text" value="English, Economics"></td>
+            <td><button class="btn1 btn-update"><i class="fas fa-edit edit-icon"></i></button>
+            </td> <!-- Update button added -->
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" value="Jane"></td>
+            <td><input type="text" value="Smith"></td>
+            <td><input type="text" value="jane.smith@example.com"></td>
+            <td><input type="text" value="Los Angeles"></td>
+            <td><input type="text" value="Business Administration"></td>
+            <td><input type="text" value="Jane's Mother"></td>
+            <td><input type="text" value="English, Economics"></td>
+            <td><button class="btn1 btn-update"><i class="fas fa-edit edit-icon"></i></button>
+            </td> <!-- Update button added -->
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" value="Jane"></td>
+            <td><input type="text" value="Smith"></td>
+            <td><input type="text" value="jane.smith@example.com"></td>
+            <td><input type="text" value="Los Angeles"></td>
+            <td><input type="text" value="Business Administration"></td>
+            <td><input type="text" value="Jane's Mother"></td>
+            <td><input type="text" value="English, Economics"></td>
+            <td><button class="btn1 btn-update"><i class="fas fa-edit edit-icon"></i></button>
+            </td> <!-- Update button added -->
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><input type="text" value="Jane"></td>
+            <td><input type="text" value="Smith"></td>
+            <td><input type="text" value="jane.smith@example.com"></td>
+            <td><input type="text" value="Los Angeles"></td>
+            <td><input type="text" value="Business Administration"></td>
+            <td><input type="text" value="Jane's Mother"></td>
+            <td><input type="text" value="English, Economics"></td>
+            <td><button class="btn1 btn-update"><i class="fas fa-edit edit-icon"></i></button>
+            </td> <!-- Update button added -->
+          </tr>
+          <!-- Add more student rows here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

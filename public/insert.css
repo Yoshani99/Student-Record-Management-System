@@ -1,0 +1,65 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+body{
+    background: linear-gradient(
+            90deg,
+            #f5b94a 0%,
+            #e9e633 45%,
+            #f56c4a 100%
+          );
+    
+}
+h1{
+    text-align: center;
+    
+    
+}
+h2{
+    text-align: center;
+    
+}
+
+.form-section, .students-section {
+    margin-bottom: 20px;
+
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input[type="submit"] {
+    font-size: larger;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: blue;
+    border-color: red;
+    border-width: 2px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover{
+  background: rgb(255, 120, 9);
+  text-transform: uppercase;
+  color: blue;
+  font-weight: bolder;
+}
+
+
+table {
+    width: 100%;
+    border-collapse:collapse;
+}

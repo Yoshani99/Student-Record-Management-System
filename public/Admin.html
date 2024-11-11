@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <script src="script.js"></script>
+</head>
+<body>
+  <form id="loginForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br><br>
+    <button type="button" onclick="login()">Login</button>
+  </form>
+  <script>
+  function login() {
+    // Retrieve form values
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+  
+    // Check if username and password are entered
+    if (username && password) {
+      // Prompt for additional information
+      var name = prompt("Enter your name:");
+      var email = prompt("Enter your email:");
+      var registerNumber = prompt("Enter your register number:");
+      var nearestCity = prompt("Enter your nearest city:");
+      var phoneNumber = prompt("Enter your phone number:");
+  
+      // Display the information in a popup box
+      var message = "Name: " + name + "\n" +
+                    "Email: " + email + "\n" +
+                    "Register Number: " + registerNumber + "\n" +
+                    "Nearest City: " + nearestCity + "\n" +
+                    "Phone Number: " + phoneNumber;
+      alert(message);
+    } else {
+      alert("Please enter a username and password.");
+    }
+  }
+</script>
+</body>
+</html>
